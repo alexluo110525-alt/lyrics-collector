@@ -11,6 +11,50 @@
       --text-dim: #8e8e93;
       --accent: #fa2d48;
       --glass: rgba(255,255,255,0.08);
+      --line-size: 21px;
+      --line-active: 23px;
+      --line-gap: 18px;
+      --btn-size: 54px;
+      --ctrl-gap: 32px;
+      --side-btn: 22px;
+      --edit-btn: 28px;
+      --radius: 10px;
+    }
+
+    /* ========== Phone Mode ========== */
+    body.mode-phone {
+      --line-size: 20px;
+      --line-active: 22px;
+      --line-gap: 16px;
+      --btn-size: 58px;
+      --ctrl-gap: 28px;
+      --side-btn: 24px;
+      --edit-btn: 34px;
+      --radius: 12px;
+    }
+
+    /* ========== Tablet Mode ========== */
+    body.mode-tablet {
+      --line-size: 23px;
+      --line-active: 25px;
+      --line-gap: 20px;
+      --btn-size: 60px;
+      --ctrl-gap: 40px;
+      --side-btn: 24px;
+      --edit-btn: 32px;
+      --radius: 12px;
+    }
+
+    /* ========== Desktop Mode ========== */
+    body.mode-desktop {
+      --line-size: 22px;
+      --line-active: 24px;
+      --line-gap: 20px;
+      --btn-size: 52px;
+      --ctrl-gap: 36px;
+      --side-btn: 20px;
+      --edit-btn: 26px;
+      --radius: 8px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -28,15 +72,25 @@
       display: flex;
       flex-direction: column;
       height: 100%;
-      max-width: 480px;
+      max-width: 520px;
       margin: 0 auto;
       background: linear-gradient(180deg, #1c0a10 0%, #000 45%);
       position: relative;
     }
 
+    body.mode-desktop .app {
+      max-width: 480px;
+      border-left: 1px solid #111;
+      border-right: 1px solid #111;
+    }
+
+    body.mode-tablet .app {
+      max-width: 640px;
+    }
+
     /* Header */
     .header {
-      padding: 16px 18px 8px;
+      padding: 14px 16px 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -44,8 +98,8 @@
     }
 
     .icon-btn {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       background: var(--glass);
       border: none;
@@ -54,7 +108,14 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 15px;
+      font-size: 17px;
+      text-decoration: none;
+    }
+
+    body.mode-phone .icon-btn {
+      width: 42px;
+      height: 42px;
+      font-size: 18px;
     }
 
     .header-title {
@@ -63,20 +124,54 @@
       opacity: 0.85;
     }
 
+    /* Mode Switcher */
+    .mode-switcher {
+      display: flex;
+      gap: 4px;
+      background: var(--glass);
+      padding: 3px;
+      border-radius: 20px;
+    }
+
+    .mode-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mode-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    body.mode-phone .mode-btn {
+      padding: 6px 9px;
+      font-size: 12px;
+    }
+
     /* Song Info */
     .song-info {
       text-align: center;
-      padding: 6px 24px 14px;
+      padding: 4px 20px 10px;
     }
 
     .song-title {
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 700;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
+    body.mode-tablet .song-title { font-size: 24px; }
+    body.mode-phone .song-title { font-size: 19px; }
+
     .song-artist {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-dim);
     }
 
@@ -85,49 +180,60 @@
       flex: 1;
       overflow: hidden;
       position: relative;
-      mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 80%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 80%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 7%, #000 76%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 7%, #000 76%, transparent 100%);
     }
 
     .lyrics-scroll {
       height: 100%;
       overflow-y: auto;
       scroll-behavior: smooth;
-      padding: 40px 20px 150px;
+      padding: 28px 16px 170px;
       scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
     }
 
     .lyrics-scroll::-webkit-scrollbar { display: none; }
 
     .lyric-line {
-      font-size: 22px;
+      font-size: var(--line-size);
       font-weight: 600;
       line-height: 1.4;
       color: var(--text-dim);
-      margin-bottom: 20px;
-      transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+      margin-bottom: var(--line-gap);
+      transition: all 0.3s ease;
       opacity: 0.4;
       cursor: pointer;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: var(--radius);
+    }
+
+    body.mode-phone .lyric-line {
+      padding: 10px 12px;
     }
 
     .lyric-line.active {
       color: #fff;
       opacity: 1;
-      font-size: 24px;
+      font-size: var(--line-active);
     }
 
     .lyric-line.past { opacity: 0.25; }
 
+    .lyric-line.selected {
+      background: rgba(250, 45, 72, 0.18);
+      border: 1px solid var(--accent);
+    }
+
     .lyric-text { flex: 1; }
 
-    /* Edit Mode elements */
     .time-label {
       font-size: 12px;
       color: var(--text-dim);
-      min-width: 42px;
+      min-width: 40px;
       padding-top: 4px;
       font-variant-numeric: tabular-nums;
       display: none;
@@ -143,37 +249,41 @@
       background: #222;
       border: 1px solid #333;
       color: #fff;
-      border-radius: 6px;
-      width: 28px;
-      height: 28px;
-      font-size: 14px;
+      border-radius: 8px;
+      width: var(--edit-btn);
+      height: var(--edit-btn);
+      font-size: 15px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      touch-action: manipulation;
     }
 
     .edit-btn.set {
       width: auto;
-      padding: 0 8px;
-      font-size: 11px;
+      padding: 0 10px;
+      font-size: 12px;
       background: var(--accent);
       border-color: var(--accent);
     }
 
-    /* Show edit UI when editing */
     body.editing .time-label,
     body.editing .edit-controls {
       display: flex;
     }
 
     body.editing .lyric-line {
-      font-size: 17px;
-      margin-bottom: 14px;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    body.mode-phone.editing .lyric-line {
+      font-size: 15px;
     }
 
     body.editing .lyric-line.active {
-      font-size: 18px;
+      font-size: 17px;
     }
 
     /* Player */
@@ -182,25 +292,34 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 14px 20px 28px;
+      padding: 12px 16px 24px;
       background: linear-gradient(to top, rgba(0,0,0,0.97) 65%, transparent);
       z-index: 30;
     }
 
+    body.mode-phone .player {
+      padding: 12px 14px 28px;
+    }
+
     .progress-bar {
-      height: 3px;
+      height: 5px;
       background: rgba(255,255,255,0.15);
-      border-radius: 2px;
+      border-radius: 3px;
       cursor: pointer;
       margin-bottom: 8px;
       overflow: hidden;
+      touch-action: none;
+    }
+
+    body.mode-phone .progress-bar {
+      height: 6px;
     }
 
     .progress-fill {
       height: 100%;
       background: #fff;
       width: 0%;
-      border-radius: 2px;
+      border-radius: 3px;
     }
 
     .progress-bar:hover .progress-fill { background: var(--accent); }
@@ -210,7 +329,7 @@
       justify-content: space-between;
       font-size: 11px;
       color: var(--text-dim);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       font-variant-numeric: tabular-nums;
     }
 
@@ -218,7 +337,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 36px;
+      gap: var(--ctrl-gap);
     }
 
     .ctrl-btn {
@@ -229,26 +348,26 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      touch-action: manipulation;
     }
 
     .play-btn {
-      width: 56px;
-      height: 56px;
+      width: var(--btn-size);
+      height: var(--btn-size);
       border-radius: 50%;
       background: #fff;
       color: #000;
     }
 
     .play-btn svg, .ctrl-btn svg {
-      width: 22px;
-      height: 22px;
+      width: var(--side-btn);
+      height: var(--side-btn);
     }
 
-    /* Edit Toggle */
     .edit-toggle {
       position: absolute;
-      top: 16px;
-      right: 60px;
+      top: 14px;
+      right: 56px;
       background: var(--glass);
       border: none;
       color: #fff;
@@ -258,19 +377,47 @@
       border-radius: 20px;
       cursor: pointer;
       z-index: 25;
+      touch-action: manipulation;
+    }
+
+    body.mode-phone .edit-toggle {
+      padding: 8px 14px;
+      font-size: 13px;
+      right: 60px;
     }
 
     body.editing .edit-toggle {
       background: var(--accent);
     }
+
+    .hint {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 8px;
+      display: none;
+      line-height: 1.4;
+    }
+
+    body.editing .hint {
+      display: block;
+    }
+
+    body.mode-phone .hint {
+      font-size: 12px;
+    }
   </style>
 </head>
-<body>
+<body class="mode-phone">
   <div class="app">
     <div class="header">
       <a href="index.html" class="icon-btn">←</a>
-      <div class="header-title">FOMO</div>
-      <div style="width:36px"></div>
+      <div class="mode-switcher" id="modeSwitcher">
+        <button class="mode-btn" data-mode="phone">Phone</button>
+        <button class="mode-btn" data-mode="tablet">Tablet</button>
+        <button class="mode-btn" data-mode="desktop">Desktop</button>
+      </div>
+      <div style="width:38px"></div>
     </div>
 
     <button class="edit-toggle" id="editToggle">Edit Timing</button>
@@ -304,75 +451,111 @@
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
         </button>
       </div>
+      <div class="hint">
+        Select a line → use − / + or Set<br>
+        Following lines will shift together automatically
+      </div>
     </div>
   </div>
 
   <audio id="audio" src="cold-shoulder.m4a" preload="auto"></audio>
 
   <script>
-    // Default timestamps
+    // ========== Mode System ==========
+    const modeSwitcher = document.getElementById('modeSwitcher');
+    const modeBtns = modeSwitcher.querySelectorAll('.mode-btn');
+
+    function setMode(mode) {
+      document.body.classList.remove('mode-phone', 'mode-tablet', 'mode-desktop');
+      document.body.classList.add('mode-' + mode);
+      modeBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+      });
+      localStorage.setItem('fomo-display-mode', mode);
+    }
+
+    // Auto detect on first load
+    function detectMode() {
+      const saved = localStorage.getItem('fomo-display-mode');
+      if (saved) return saved;
+
+      const w = window.innerWidth;
+      if (w < 600) return 'phone';
+      if (w < 900) return 'tablet';
+      return 'desktop';
+    }
+
+    setMode(detectMode());
+
+    modeBtns.forEach(btn => {
+      btn.addEventListener('click', () => setMode(btn.dataset.mode));
+    });
+
+    // ========== Lyrics Data ==========
     const defaultLyrics = [
       { time: 0.0,  text: "I'd trade my dreams for something good" },
-      { time: 3.8,  text: "Come back" },
-      { time: 6.3,  text: "This shit to us is a regular night" },
-      { time: 9.2,  text: "How much do you need to better your life?" },
-      { time: 12.9, text: "Niggas went dark, but I'm shedding some light" },
-      { time: 16.1, text: "Broski would do anythin' to get him some stripes" },
-      { time: 19.3, text: "Shawty said they pullin' us, she better be right" },
-      { time: 22.6, text: "We missed the last time, but we'll get 'em tonight" },
-      { time: 25.9, text: "Why can't you be with me every night?" },
-      { time: 29.1, text: "Ever since you left me, I'm losin' my mind, uh" },
-      { time: 33.2, text: "Come back" },
-      { time: 35.8, text: "I promise this ain't over" },
-      { time: 39.0, text: "You're givin' me the cold shoulder" },
-      { time: 43.2, text: "Come back, come back" },
-      { time: 46.3, text: "I promise this ain't over" },
-      { time: 49.5, text: "You're givin' me the cold shoulder" },
-      { time: 54.2, text: "Please come rock me back, please come take me home" },
-      { time: 59.8, text: "Please come do me wrong, please come do me wrong" },
-      { time: 64.3, text: "This a movie role, I got a doobie rolled" },
-      { time: 67.8, text: "You know what it do with me, love" },
-      { time: 70.9, text: "You know what to do with me, love" },
-      { time: 74.0, text: "On the road I sing the same songs" },
-      { time: 77.0, text: "Don't leave me out, don't leave me 'lone, yeah" },
-      { time: 80.4, text: "I don't know who to put the blame on" },
-      { time: 83.8, text: "Stop, wait, hang on" },
-      { time: 85.8, text: "Hold on" },
-      { time: 87.3, text: "Let's get high and say we're indicted" },
-      { time: 90.8, text: "Let's get high and jump one way" },
-      { time: 93.9, text: "Let's get high, go do it, baby" },
-      { time: 96.9, text: "Let's get high and go to Tropez" },
-      { time: 99.9, text: "In the casa, sittin' sideways" },
-      { time: 102.9,text: "Love your ass, call you pet names" },
-      { time: 106.4,text: "You've been wearin' all that pride on your sleeve" },
-      { time: 109.9,text: "I see so much pride on your face" },
-      { time: 113.0,text: "Should've just went to the parade" },
-      { time: 116.1,text: "Oh, I blame July for your waist, rainbow face paint" },
-      { time: 120.6,text: "It's pink stuff in your nose" },
-      { time: 123.2,text: "Yeah, it's pink stuff in your nose" },
-      { time: 126.2,text: "History repeats itself, but I don't" },
-      { time: 129.3,text: "The mouthpiece that you got on you is wide open" },
-      { time: 132.8,text: "Say you wanna change your life, then why don't you?" },
-      { time: 136.5,text: "Come back" },
-      { time: 138.6,text: "Promise this ain't over" },
-      { time: 141.2,text: "You're givin' me the cold shoulder" },
-      { time: 145.6,text: "Come back" },
-      { time: 147.7,text: "Promise this ain't over" },
-      { time: 150.3,text: "You're givin' me the cold shoulder" },
-      { time: 155.5,text: "Oh-woah, oh-woah" },
-      { time: 158.6,text: "Cold, oh-woah" },
-      { time: 161.7,text: "Oh-woah, oh, you're givin' me the" },
-      { time: 165.3,text: "Cold, oh-woah, oh-woah" },
-      { time: 168.9,text: "Oh-woah, oh, you're givin' me the" },
-      { time: 172.5,text: "Cold, oh-woah" },
-      { time: 175.6,text: "Oh-woah, oh, you're givin' me the" },
-      { time: 179.2,text: "Cold, oh-woah" },
-      { time: 185.5,text: "Oh, I don't need a car" },
-      { time: 192.8,text: "Oh, I don't need a car" }
+      { time: 3.5,  text: "Come back" },
+      { time: 6.2,  text: "This shit to us is a regular night" },
+      { time: 9.1,  text: "How much do you need to better your life?" },
+      { time: 12.8, text: "Niggas went dark, but I'm shedding some light" },
+      { time: 16.0, text: "Broski would do anythin' to get him some stripes" },
+      { time: 19.2, text: "Shawty said they pullin' us, she better be right" },
+      { time: 22.5, text: "We missed the last time, but we'll get 'em tonight" },
+      { time: 25.7, text: "Why can't you be with me every night?" },
+      { time: 28.9, text: "Ever since you left me, I'm losin' my mind, uh" },
+      { time: 32.8, text: "Come back" },
+      { time: 35.2, text: "I promise this ain't over" },
+      { time: 38.3, text: "You're givin' me the cold shoulder" },
+      { time: 42.5, text: "Come back, come back" },
+      { time: 45.5, text: "I promise this ain't over" },
+      { time: 48.6, text: "You're givin' me the cold shoulder" },
+      { time: 53.5, text: "Please come rock me back, please come take me home" },
+      { time: 58.8, text: "Please come do me wrong, please come do me wrong" },
+      { time: 63.2, text: "This a movie role, I got a doobie rolled" },
+      { time: 66.6, text: "You know what it do with me, love" },
+      { time: 69.6, text: "You know what to do with me, love" },
+      { time: 72.6, text: "On the road I sing the same songs" },
+      { time: 75.5, text: "Don't leave me out, don't leave me 'lone, yeah" },
+      { time: 78.8, text: "I don't know who to put the blame on" },
+      { time: 82.2, text: "Stop, wait, hang on" },
+      { time: 84.2, text: "Hold on" },
+      { time: 85.8, text: "Let's get high and say we're indicted" },
+      { time: 89.2, text: "Let's get high and jump one way" },
+      { time: 92.2, text: "Let's get high, go do it, baby" },
+      { time: 95.1, text: "Let's get high and go to Tropez" },
+      { time: 98.0, text: "In the casa, sittin' sideways" },
+      { time: 100.9,text: "Love your ass, call you pet names" },
+      { time: 104.3,text: "You've been wearin' all that pride on your sleeve" },
+      { time: 107.7,text: "I see so much pride on your face" },
+      { time: 110.7,text: "Should've just went to the parade" },
+      { time: 113.7,text: "Oh, I blame July for your waist, rainbow face paint" },
+      { time: 118.0,text: "It's pink stuff in your nose" },
+      { time: 120.5,text: "Yeah, it's pink stuff in your nose" },
+      { time: 123.4,text: "History repeats itself, but I don't" },
+      { time: 126.4,text: "The mouthpiece that you got on you is wide open" },
+      { time: 129.8,text: "Say you wanna change your life, then why don't you?" },
+      { time: 133.4,text: "Come back" },
+      { time: 135.4,text: "Promise this ain't over" },
+      { time: 137.9,text: "You're givin' me the cold shoulder" },
+      { time: 142.2,text: "Come back" },
+      { time: 144.2,text: "Promise this ain't over" },
+      { time: 146.7,text: "You're givin' me the cold shoulder" },
+      { time: 151.8,text: "Oh-woah, oh-woah" },
+      { time: 154.8,text: "Cold, oh-woah" },
+      { time: 157.8,text: "Oh-woah, oh, you're givin' me the" },
+      { time: 161.3,text: "Cold, oh-woah, oh-woah" },
+      { time: 164.8,text: "Oh-woah, oh, you're givin' me the" },
+      { time: 168.3,text: "Cold, oh-woah" },
+      { time: 171.3,text: "Oh-woah, oh, you're givin' me the" },
+      { time: 174.8,text: "Cold, oh-woah" },
+      { time: 181.0,text: "Oh, I don't need a car" },
+      { time: 188.0,text: "Oh, I don't need a car" }
     ];
 
-    // Load saved timings from localStorage
-    let lyricsData = JSON.parse(localStorage.getItem('cold-shoulder-timings')) || defaultLyrics;
+    let lyricsData = JSON.parse(localStorage.getItem('fomo-cold-shoulder-v2')) || defaultLyrics;
+    let selectedIndex = -1;
+    let isEditing = false;
+    let currentIndex = -1;
 
     const audio = document.getElementById('audio');
     const lyricsScroll = document.getElementById('lyricsScroll');
@@ -387,9 +570,6 @@
     const nextBtn = document.getElementById('nextBtn');
     const editToggle = document.getElementById('editToggle');
 
-    let currentIndex = -1;
-    let isEditing = false;
-
     function formatTime(s) {
       const m = Math.floor(s / 60);
       const sec = Math.floor(s % 60);
@@ -397,12 +577,12 @@
     }
 
     function saveTimings() {
-      localStorage.setItem('cold-shoulder-timings', JSON.stringify(lyricsData));
+      localStorage.setItem('fomo-cold-shoulder-v2', JSON.stringify(lyricsData));
     }
 
     function renderLyrics() {
       lyricsScroll.innerHTML = lyricsData.map((line, i) => `
-        <div class="lyric-line" data-index="${i}">
+        <div class="lyric-line ${i === selectedIndex ? 'selected' : ''}" data-index="${i}">
           <div class="time-label">${formatTime(line.time)}</div>
           <div class="lyric-text">${line.text}</div>
           <div class="edit-controls">
@@ -413,31 +593,45 @@
         </div>
       `).join('');
 
-      // Click line to seek
       document.querySelectorAll('.lyric-line').forEach(el => {
         el.addEventListener('click', (e) => {
           if (e.target.closest('.edit-controls')) return;
           const idx = parseInt(el.dataset.index);
-          audio.currentTime = lyricsData[idx].time;
+
+          if (isEditing) {
+            selectedIndex = idx;
+            renderLyrics();
+            updateLyrics(audio.currentTime);
+          } else {
+            audio.currentTime = lyricsData[idx].time;
+          }
         });
       });
 
-      // Edit buttons
       document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const lineEl = btn.closest('.lyric-line');
           const idx = parseInt(lineEl.dataset.index);
           const action = btn.dataset.action;
+          const oldTime = lyricsData[idx].time;
+          let newTime = oldTime;
 
-          if (action === 'minus') {
-            lyricsData[idx].time = Math.max(0, lyricsData[idx].time - 0.5);
-          } else if (action === 'plus') {
-            lyricsData[idx].time += 0.5;
-          } else if (action === 'set') {
-            lyricsData[idx].time = audio.currentTime;
+          if (action === 'minus') newTime = Math.max(0, oldTime - 0.3);
+          else if (action === 'plus') newTime = oldTime + 0.3;
+          else if (action === 'set') newTime = audio.currentTime;
+
+          const delta = newTime - oldTime;
+          lyricsData[idx].time = newTime;
+
+          // Cascade shift following lines
+          if (delta !== 0) {
+            for (let i = idx + 1; i < lyricsData.length; i++) {
+              lyricsData[i].time = Math.max(0, lyricsData[i].time + delta);
+            }
           }
 
+          selectedIndex = idx;
           saveTimings();
           renderLyrics();
           updateLyrics(audio.currentTime);
@@ -454,7 +648,7 @@
         }
       }
 
-      if (newIndex === currentIndex) return;
+      if (newIndex === currentIndex && !isEditing) return;
 
       const lines = document.querySelectorAll('.lyric-line');
       lines.forEach((line, i) => {
@@ -465,11 +659,12 @@
 
       if (newIndex >= 0 && !isEditing) {
         const active = lines[newIndex];
-        const containerH = lyricsScroll.clientHeight;
-        const scrollTo = active.offsetTop - containerH / 2 + active.offsetHeight / 2;
-        lyricsScroll.scrollTo({ top: Math.max(0, scrollTo), behavior: 'smooth' });
+        if (active) {
+          const containerH = lyricsScroll.clientHeight;
+          const scrollTo = active.offsetTop - containerH / 2 + active.offsetHeight / 2;
+          lyricsScroll.scrollTo({ top: Math.max(0, scrollTo), behavior: 'smooth' });
+        }
       }
-
       currentIndex = newIndex;
     }
 
@@ -486,15 +681,15 @@
       isEditing = !isEditing;
       document.body.classList.toggle('editing', isEditing);
       editToggle.textContent = isEditing ? 'Done' : 'Edit Timing';
+      selectedIndex = -1;
+      renderLyrics();
     });
 
     // Player events
     audio.addEventListener('loadedmetadata', () => {
       durationEl.textContent = formatTime(audio.duration);
     });
-
     audio.addEventListener('timeupdate', updateProgress);
-
     audio.addEventListener('ended', () => {
       playIcon.style.display = 'block';
       pauseIcon.style.display = 'none';
@@ -512,11 +707,19 @@
       }
     });
 
-    progressBar.addEventListener('click', (e) => {
+    // Progress bar - support both mouse and touch
+    function seekFromEvent(e) {
       const rect = progressBar.getBoundingClientRect();
-      const percent = (e.clientX - rect.left) / rect.width;
+      let clientX;
+      if (e.touches && e.touches.length) clientX = e.touches[0].clientX;
+      else clientX = e.clientX;
+      const percent = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
       audio.currentTime = percent * (audio.duration || 209);
-    });
+    }
+
+    progressBar.addEventListener('click', seekFromEvent);
+    progressBar.addEventListener('touchstart', (e) => { e.preventDefault(); seekFromEvent(e); }, { passive: false });
+    progressBar.addEventListener('touchmove', (e) => { e.preventDefault(); seekFromEvent(e); }, { passive: false });
 
     prevBtn.addEventListener('click', () => {
       if (currentIndex > 0) audio.currentTime = lyricsData[currentIndex - 1].time;
